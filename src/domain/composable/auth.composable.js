@@ -9,11 +9,8 @@ export default function useAuth() {
     await Auth.logout()
   }
 
-  const createUser = async () => {}
-
   return {
     login,
-    logout,
-    createUser
+    logout
   }
 }

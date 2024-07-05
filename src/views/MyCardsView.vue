@@ -1,21 +1,14 @@
 <script setup>
-import { onMounted } from 'vue'
-import { useCardsStore } from '@/store/cards.js'
+import { useUserStore } from '@/store/user'
 import Cards from '@/components/Cards.vue'
 
-const cardsStore = useCardsStore()
-
-onMounted(() => {
-  if (!cardsStore.myCards.length) {
-    cardsStore.listByUserId()
-  }
-})
+const userStore = useUserStore()
 </script>
 
 <template>
-  <main>
+  <main v-if="userStore?.user?.cards">
     <Cards
-      v-for="carta in cardsStore.myCards"
+      v-for="carta in userStore.user.cards"
       :key="carta.id"
       :name="carta.name"
       :rare="carta.rare"

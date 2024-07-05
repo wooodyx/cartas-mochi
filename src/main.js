@@ -11,16 +11,13 @@ import { useUserStore } from '@/store/user'
 import { useCardsStore } from '@/store/cards'
 
 const app = createApp(App)
-
+const pinia = createPinia()
 const i18n = createI18n({
   legacy: false,
   locale: 'es',
   fallbackLocale: 'en',
   messages
 })
-
-const pinia = createPinia()
-
 app.use(pinia)
 app.use(router)
 app.use(i18n)
@@ -29,8 +26,11 @@ const userStore = useUserStore()
 const cardStore = useCardsStore()
 
 if (localStorage.getItem('mochi-user')) {
-  userStore.user = JSON.parse(localStorage.getItem('mochi-user'))
-  cardStore.init()
+  const uid = localStorage.getItem('mochi-user')
+
+  userStore.getUser(uid).then(() => {
+    cardStore.init()
+  })
 }
 
 app.mount('#app')

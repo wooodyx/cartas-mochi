@@ -1,5 +1,5 @@
 <script setup></script>
 
 <template>
-  <main></main>
+  <section>detail users works!</section>
 </template>

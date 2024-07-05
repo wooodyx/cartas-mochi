@@ -1,12 +1,26 @@
-import { ref } from 'vue'
 import { defineStore } from 'pinia'
+import { User } from '@/services/user/user'
 
 export const useUserStore = defineStore('user', {
-  state: () => {
-    const storedUser = localStorage.getItem('mochi-user')
-    const user = ref(storedUser ? JSON.parse(storedUser) : null)
+  state: () => ({
+    user: null,
+    list: [],
+    loading: false
+  }),
+  actions: {
+    async getUser(uid) {
+      const user = await User.getUserById(uid)
 
-    return { user }
+      this.user = {
+        ...user,
+        cards: user.role === 'admin' ? [] : JSON.parse(user.cards)
+      }
+    },
+    async getList() {
+      this.loading = true
+      this.list = await User.listUsers()
+      this.loading = false
+    }
   },
   persist: true
 })

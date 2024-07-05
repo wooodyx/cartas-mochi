@@ -1,10 +1,12 @@
 :root {
   --color-mochi: #ec6c92;
+  --color-mochi-light: #f7a9c4;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-mochi: #673040
+    --color-mochi: #673040;
+    --color-mochi-light: #9b5a6b;
   }
 }
 
@@ -43,11 +45,6 @@ nav {
   align-items: center;
   gap: 16px;
   padding: 0 32px;
-
-  button {
-    position: absolute;
-    right: 20px;
-  }
 }
 
 a {
@@ -103,4 +100,8 @@ button {
   &:disabled:hover {
     filter: none;
   }
+}
+
+.router-active {
+  color: var(--color-mochi-light);
 }

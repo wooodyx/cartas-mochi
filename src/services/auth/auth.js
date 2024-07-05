@@ -7,8 +7,8 @@ const login = (email, password) => {
   return signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
     const user = userCredential.user
 
-    localStorage.setItem('mochi-user', JSON.stringify(user))
-    userStore.user = user
+    localStorage.setItem('mochi-user', user.uid)
+    userStore.user = userStore.getUser(user.uid)
 
     return user
   })

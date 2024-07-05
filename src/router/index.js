@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
+  linkActiveClass: 'router-active',
+  linkExactActiveClass: 'router-active',
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
@@ -23,9 +25,37 @@ const router = createRouter({
       path: '/admin',
       name: 'Admin',
       meta: {
-        requiresAuth: true
+        requiresAuth: false
       },
-      component: () => import(/* webpackChunkName: "my-cards" */ '../views/AdminView.vue')
+      component: () => import(/* webpackChunkName: "my-cards" */ '../views/admin/AdminView.vue'),
+      children: [
+        {
+          path: '/admin/users',
+          name: 'Users',
+          component: () =>
+            import(/* webpackChunkName: "users" */ '../views/admin/components/UsersComponent.vue')
+        },
+        {
+          path: '/admin/detail/:id',
+          name: 'UserDetail',
+          component: () =>
+            import(
+              /* webpackChunkName: "detail" */ '../views/admin/components/DetailUserComponent.vue'
+            )
+        },
+        {
+          path: '/admin/create',
+          name: 'CreateUser',
+          component: () =>
+            import(
+              /* webpackChunkName: "create" */ '../views/admin/components/CreateUserComponent.vue'
+            )
+        },
+        {
+          path: '**',
+          redirect: { name: 'Users' }
+        }
+      ]
     },
     {
       path: '/login',
