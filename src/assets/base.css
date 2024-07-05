@@ -1,0 +1,106 @@
+:root {
+  --color-mochi: #ec6c92;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-mochi: #673040
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "SoulBillani";
+  src: url("fonts/SoulBillani.otf");
+}
+
+html,
+body {
+  font-family: "SoulBillani", system-ui, sans-serif;
+  background: var(--color-mochi);
+  min-height: 100vh;
+  transition: color 0.5s, background-color 0.5s;
+  line-height: 1.6;
+  font-size: 14px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+header {
+  display: flex;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 32px;
+
+  button {
+    position: absolute;
+    right: 20px;
+  }
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+  color: white;
+  font-size: 20px;
+  &:hover {
+    filter: drop-shadow(2px 4px 6px black);
+  }
+}
+
+img {
+  width: 70px;
+  height: 70px;
+  cursor: pointer;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 220px;
+}
+
+input {
+  padding: 8px;
+  font-size: 20px;
+  border-radius: 8px;
+  border: 1px solid #ec6c92;
+}
+
+button {
+  padding: 8px;
+  font-size: 20px;
+  border-radius: 8px;
+  border: 1px solid #ec6c92;
+  background: #ec6c92;
+  color: white;
+  cursor: pointer;
+
+  &:hover {
+    filter: drop-shadow(2px 4px 6px black);
+  }
+
+  &:disabled {
+    background: #ccc;
+    color: #666;
+    cursor: not-allowed;
+    border: 1px solid #ccc;
+  }
+
+  &:disabled:hover {
+    filter: none;
+  }
+}

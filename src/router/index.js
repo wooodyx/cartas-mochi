@@ -1,0 +1,59 @@
+import { createRouter, createWebHistory } from 'vue-router'
+
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    {
+      path: '/',
+      name: 'Home',
+      meta: {
+        requiresAuth: false
+      },
+      component: () => import(/* webpackChunkName: "home" */ '../views/HomeView.vue')
+    },
+    {
+      path: '/my-cards',
+      name: 'MyCards',
+      meta: {
+        requiresAuth: true
+      },
+      component: () => import(/* webpackChunkName: "my-cards" */ '../views/MyCardsView.vue')
+    },
+    {
+      path: '/admin',
+      name: 'Admin',
+      meta: {
+        requiresAuth: true
+      },
+      component: () => import(/* webpackChunkName: "my-cards" */ '../views/AdminView.vue')
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      meta: {
+        requiresAuth: false
+      },
+      component: () => import(/* webpackChunkName: "login" */ '../views/LoginView.vue')
+    }
+  ]
+})
+
+const handleAuthentication = (to, from, next) => {
+  const isAuthenticated = Boolean(localStorage.getItem('mochi-user'))
+
+  if (to.name === 'Login' && isAuthenticated) {
+    next({ name: 'MyCards' })
+  }
+
+  if (to.meta.requiresAuth && !isAuthenticated) {
+    next('/login')
+  }
+
+  next()
+}
+
+router.beforeEach(async (to, from, next) => {
+  handleAuthentication(to, from, next)
+})
+
+export default router
